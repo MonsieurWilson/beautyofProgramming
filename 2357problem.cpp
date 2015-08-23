@@ -1,23 +1,26 @@
 #include <iostream>
 #include <climits>
+#include <vector>
 
 using namespace std;
 
 int cal(const int &N) {
-    int ret = 1;
-    int idx[] = {2, 3, 5, 7}, val[] = {1, 1, 1, 1};
+    vector<int> ret(1, 1);
+    int base[] = {2, 3, 5, 7}, idx[] = {0, 0, 0, 0};
     for (int num = 2; num <= N; ++num) {
-        ret = INT_MAX;
-        for (int i = 0; i < 4; ++i) {
-            ret = min(ret, val[i] * idx[i]);
+        int minVal = base[0] * ret[idx[0]];
+        for (int i = 1; i < 4; ++i) {
+            minVal = min(minVal, base[i] * ret[idx[i]]);
         }
+
         for (int i = 0; i < 4; ++i) {
-            if (val[i] * idx[i] == ret) {
-                ++val[i];
+            if (base[i] * ret[idx[i]] == minVal) {
+                ++idx[i];
             }
         }
+        ret.push_back(minVal);
     }
-    return ret;
+    return ret[ret.size() - 1];
 }
 
 int main() {
