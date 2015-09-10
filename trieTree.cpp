@@ -8,7 +8,7 @@ using namespace std;
 struct TreeNode {
     int leafNum;
     unordered_map<char, TreeNode *> leafNodes;
-    TreeNode ():leafNum(0){}
+    TreeNode (): leafNum(0){}
 };
 
 class Trie {

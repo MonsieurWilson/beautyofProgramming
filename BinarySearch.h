@@ -1,7 +1,7 @@
 #ifndef BINARYSEARCH
 #define BINARYSEARCH
 
-class BinarySearch{
+class BinarySearch {
     /*
      * Binary search with two versions
      */
@@ -34,27 +34,19 @@ public:
     }
     static int binarySearch_v2(const int *array, const int &beg, const int &end, const int &key){
         // Only adapt to incresing sequence
-        int first = beg, last = end - 1;
-        int mid;
-        bool found = false;
-        while (first < last && found == false){
-            mid = first + (last - first) / 2;
+        while (beg <= end){
+            int mid = beg + (end - beg) / 2;
             if (array[mid] < key){
-                first = mid + 1;
+                beg = mid + 1;
             }
             else if (array[mid] > key){
-                last = mid - 1;
+                end = mid - 1;
             }
             else{
-                found = true;
+                return mid;
             }
         }
-        if (found == true){
-            return mid;
-        }
-        else{
-            return -1;
-        }
+        return -1;
     }
 };
 
