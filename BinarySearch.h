@@ -32,7 +32,7 @@ public:
             return -1;
         }
     }
-    static int binarySearch_v2(const int *array, const int &beg, const int &end, const int &key){
+    static int binarySearch_v2(const int *array, int beg, int end, const int &key){
         // Only adapt to incresing sequence
         while (beg <= end){
             int mid = beg + (end - beg) / 2;
