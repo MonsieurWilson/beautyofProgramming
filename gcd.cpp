@@ -32,7 +32,7 @@ int main() {
     int a, b;
     cout << "Input two numbers:" << endl;
     while (cin >> a >> b) {
-        cout << "The GCD is:" << endl << calGCD(a, b) << endl;
+        cout << "The GCD is: " << endl << calGCD(a, b) << endl;
     }
     return 0;
 }
