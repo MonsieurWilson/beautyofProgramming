@@ -9,6 +9,7 @@
 #include <queue>
 #include <ctime>
 #include <cassert>
+#include <climits>
 
 
 using namespace std; 
@@ -148,31 +149,31 @@ public:
     }
 
     template<typename T>
-    T maxSubArray(T *array, T beg, T end, int &first, int &last) {
+    T maxSubArray(const T *array, const T &beg, const T &end, int &start, int &last) {
         // DP
-        T tmp = array[end - 1]; 
-        T result = array[end - 1]; 
-        for (int index = end - 2; index >= beg; --index) {
+        T tmp = array[end]; 
+        T result = array[end]; 
+        for (int i = end - 1; i >= beg; --i) {
             if (tmp < 0) {
                 tmp = 0; 
             }
-            tmp += array[index]; 
+            tmp += array[i]; 
             if (tmp > result) {
                 result = tmp; 
-                first = index; 
+                start = i; 
             }
         }
 
         tmp = array[beg]; 
         result = array[beg]; 
-        for (int index = beg + 1; index != end; ++index) {
+        for (int i = beg + 1; i <= end; ++i) {
             if (tmp < 0) {
                 tmp = 0; 
             }
-            tmp += array[index]; 
+            tmp += array[i]; 
             if (tmp > result) {
                 result = tmp; 
-                last = index; 
+                last = i; 
             }
         }
         return result; 
@@ -238,71 +239,42 @@ public:
         return max; 
     }
 
-    int improvedLISLength(const int *array, const int &size) {
+    int LISLength_improved(vector<int> &array) {
+        // O(NlogN)
         // Using binarySearch
-        int *lis = new int[size]; 
-        int *maxV = new int[size + 1]; 
-        maxV[0] = minElement(array, 0, size) - 1; 
+        int lens = array.size();
+        vector<int> lis(lens, 1), maxV(lens + 1);
+        maxV[0] = *min_element(array.begin(), array.end()) - 1; 
         maxV[1] = array[0]; 
         int maxLength = 1; 
         
-        for (int idx1 = 0; idx1 != size; ++idx1) {
-            lis[idx1] = 1; 
-            /*
-            int idx2; 
-            for (idx2 = maxLength; idx2 >= 0; --idx2) {
-                if (array[idx1] > maxV[idx2]) {
-                    lis[idx1] = idx2 + 1; 
-                    break; 
-                }
-            }
-            */  
-            int idx2; 
-            binarySearch(maxV, 0, maxLength + 1, array[idx1], idx2); 
-            lis[idx1] = idx2 + 1; 
+        for (int i = 0; i < lens; ++i) {
+            int idx = binarySearch(maxV, 0, maxLength, array[i]); 
+            lis[i] = idx + 1; 
             
-            if (lis[idx1] > maxLength) {
-                maxLength = lis[idx1]; 
-                maxV[lis[idx1]] = array[idx1]; 
+            if (lis[i] > maxLength) {
+                maxLength = lis[i]; 
+                maxV[lis[i]] = array[i]; 
             }
-            else if (maxV[idx2 + 1] > array[idx1]) {
-                maxV[idx2 + 1] = array[idx1]; 
+            else if (maxV[lis[i]] > array[i]) {
+                maxV[lis[i]] = array[i]; 
             }
         }
 
         return maxLength; 
     }
-    int minElement(const int *array, const int &beg, const int &end) {
-        int min = INT_MAX; 
-        for (int idx = beg; idx != end; ++idx) {
-            if (array[idx] < min) {
-                min = array[idx]; 
-            }
-        }
-
-        return min; 
-    }
-    void binarySearch(const int *array, const int &beg, const int &end, const int &key, int &pos) {
-        // Return the last ele's index which is smaller than key.
-        int start = beg, last = end - 1; 
-        if (key > array[last]) {
-            pos = last; 
-            return; 
-        }
-        if (key < array[start]) {
-            pos = start - 1; 
-            return; 
-        }
-        while (start <= last) {
-            int mid = (start + last) / 2; 
+    int binarySearch(const vector<int> &array, int beg, int end, const int &key) {
+        // Return the last element's index which is smaller than key.
+        while (beg <= end) {
+            int mid = (beg + end) / 2; 
             if (array[mid] < key) {
-                start = mid + 1; 
+                beg = mid + 1; 
             }
             else {
-                last = mid - 1; 
+                end = mid - 1; 
             }
         }
-        pos = last; 
+        return end;
     }
 
     // Length of the Common Subsequence
