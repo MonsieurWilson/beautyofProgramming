@@ -8,14 +8,15 @@ using namespace std;
 struct TreeNode {
     int leafNum;
     unordered_map<char, TreeNode *> leafNodes;
-    TreeNode (): leafNum(0){}
+    TreeNode(): leafNum(0) {}
+    TreeNode(const int &val): leafNum(val) {}
 };
 
 class Trie {
 public:
-    static TreeNode *createTree(const vector<string> &dict) {
+    static TreeNode *crtTree(const vector<string> &dict) {
         TreeNode *root = new TreeNode(), *ptr;
-        for (vector<string>::const_iterator it = dict.begin(); it != dict.end(); ++it) {
+        for (auto it = dict.begin(); it != dict.end(); ++it) {
             string s = *it;
             ptr = root;
             for (int idx = 0; idx < s.size(); ++idx) {
@@ -56,7 +57,7 @@ int main() {
         cin>>word;
         dict.push_back(word);
     }
-    TreeNode *root = Trie::createTree(dict);
+    TreeNode *root = Trie::crtTree(dict);
     int m;
     cin>>m;
     for (int num = 1; num <= m; ++num) {
