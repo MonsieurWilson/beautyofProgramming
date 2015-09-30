@@ -77,9 +77,7 @@ public:
         }
         return ret;
     }
-
 };
-
 
 ostream &operator << (ostream &o, const Matrix &mat) {
     o << "[" << endl;
