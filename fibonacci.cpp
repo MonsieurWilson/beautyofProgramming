@@ -40,12 +40,12 @@ public:
         else if (n == 1) {
             return F1;
         }
-        Matrix A(2, 2);
-        A.setEle(0, 0, 1);
-        A.setEle(0, 1, 1);
-        A.setEle(1, 0, 1);
-        Matrix An = matPow(A, n - 1);
-        return F1 * An.getEle(0, 0) + F0 * An.getEle(1, 0);
+        Matrix<int> A(2, 2);
+        A[0][0] = 1;
+        A[0][1] = 1;
+        A[1][0] = 1;
+        Matrix<int> An = matPow(A, n - 1);
+        return F1 * An[0][0] + F0 * An[1][0];
     }
 
 };
