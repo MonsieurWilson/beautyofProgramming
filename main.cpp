@@ -48,7 +48,8 @@ int main() {
     while (cin >> ele) {
         vec.push_back(ele);
     }
-    heap_sort(vec);
+    Algorithm a;
+    a.mergeSort(vec);
     cout << "After sorting, the vector's elements are: " << endl;
     for (auto v: vec) {
         cout << v << " ";

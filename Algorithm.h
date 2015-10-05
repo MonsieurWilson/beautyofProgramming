@@ -69,35 +69,34 @@ public:
     }
 
     // Merge Sort
-   void mergeSort(int A[], int beg, int end) {
-        if (beg < end - 1) {
-            int mid = (beg + end - 1) / 2; 
-            mergeSort(A, beg, mid + 1); 
-            mergeSort(A, mid + 1, end); 
-            merge(A, beg, mid, end); 
+    template <typename Object>
+    void mergeSort(vector<Object> &vec) {
+        vector<Object> tmp(vec.size());
+        mergeSort(vec, tmp, 0, vec.size() - 1);
+    }
+    template <typename Object>
+    void mergeSort(vector<Object> &vec, vector<Object> &tmp, const int beg, const int end) {
+        if (beg < end) {
+            int mid = beg + (end - beg ) / 2;
+            mergeSort(vec, tmp, beg, mid);
+            mergeSort(vec, tmp, mid + 1, end);
+            merge(vec, tmp, beg, mid, end);
         }
     }
-    void merge(int A[], int beg, int mid, int end) {
-        int n1 = mid - beg + 1, n2 = end - 1 - mid; 
-        int *p1 = new int[n1], *p2 = new int[n2]; 
-        for (int i = 1; i <= n1; ++i) {
-            p1[i - 1] = A[beg + i - 1]; 
-        }
-        for (int j = 1; j <= n2; ++j) {
-            p2[j - 1] = A[mid + j]; 
-        }
-        for (int i = 1, j = 1, k = beg; k != end; ++k) {
-            if (i > n1 || (j <= n2 && p1[i - 1] > p2[j - 1])) {
-                A[k] = p2[j - 1]; 
-                ++j; 
+    template <typename Object>
+    void merge(vector<Object> &vec, vector<Object> &tmp, const int beg, const int mid, const int end) {
+        int cur = beg, leftBeg = beg, leftEnd = mid, rightBeg = mid + 1;
+        while (leftBeg <= leftEnd || rightBeg <= end) {
+            if (leftBeg > leftEnd || rightBeg <= end && vec[leftBeg] > vec[rightBeg]) {
+                tmp[cur++] = vec[rightBeg++];
             }
-            else /*if (j > n2 || (i <= n1 && p2[j - 1] >= p1[i - 1]))*/{
-                A[k] = p1[i - 1]; 
-                ++i; 
+            else {
+                tmp[cur++] = vec[leftBeg++];
             }
         }
-        delete [] p1; 
-        delete [] p2; 
+        for (int i = beg; i <= end; ++i) {
+            vec[i] = tmp[i];
+        }
     }
     
     // Max Subarray
