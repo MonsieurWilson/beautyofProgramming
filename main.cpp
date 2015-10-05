@@ -1,6 +1,6 @@
 #include "Algorithm.h"
+#include "HeapSort.h"
 #include <vector>
-#include <set>
 
 using namespace std;
 
@@ -20,6 +20,14 @@ public:
     }
 };
 
+template <typename Object>
+class Sum {
+public:
+    Object operator () (const Object &o1, const Object &o2) {
+        return o1 + o2;
+    }
+};
+
 struct Interval {
     int beg;
     int end;
@@ -32,20 +40,20 @@ ostream &operator << (ostream &o, const Interval &i) {
     return o;
 }
 
-
 int main() {
-    set<Interval, BiggerThan<Interval>> hashMap;
-    cout << "Input the intervals:" << endl;
-    int b, e;
-    while (cin >> b >> e) {
-        hashMap.insert(Interval(b, e));
+    HeapSort<int> heap_sort;
+    vector<int> vec;
+    int ele;
+    cout << "Input the vector's elements: " << endl;
+    while (cin >> ele) {
+        vec.push_back(ele);
     }
-
-    cout << "The elements in the containers:" << endl;
-    for (auto it = hashMap.cbegin(); it != hashMap.cend(); ++it) {
-        cout << *it << endl;
+    heap_sort(vec);
+    cout << "After sorting, the vector's elements are: " << endl;
+    for (auto v: vec) {
+        cout << v << " ";
     }
-    
+    cout << endl;
 
     return 0;
 }
