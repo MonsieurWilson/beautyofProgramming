@@ -41,16 +41,16 @@ int dijkstra(const int &N, const int &S, const int &T) {
 int main() {
     ios::sync_with_stdio(false);
     int N, M, S, T;
-    cin>>N>>M>>S>>T;
+    cin >> N >> M >> S >> T;
     memset(graph, -1, sizeof(graph));
     for (int r = 1; r <= N; ++r) {
         graph[r][r] = 0;
     }
     for (int m = 1; m <= M; ++m) {
         int ui, vi, leni;
-        cin>>ui>>vi>>leni;
+        cin >> ui >> vi >> leni;
         graph[ui][vi] = leni;
     }
-    cout<<dijkstra(N, S, T)<<endl;
+    cout << dijkstra(N, S, T) << endl;
     return 0;
 }

@@ -12,12 +12,13 @@ using namespace std;
 
 struct Point {
     int x, y, num;
-    Point():x(0), y(0), num(0){}
-    Point(const int &a, const int &b, const int &c):x(a), y(b), num(c){}
-    friend bool operator < (const Point &a, const Point &b) {
-        return a.x < b.x;
-    }
+    Point(): x(0), y(0), num(0) {}
+    Point(const int &a, const int &b, const int &c): x(a), y(b), num(c) {}
 };
+
+bool operator < (const Point &a, const Point &b) {
+    return a.x < b.x;
+}
 
 const int MAX = 100000;
 vector<pair<int, int> > graph[MAX];
@@ -69,19 +70,19 @@ int spfa(const int &N) {
 
 int main() {
     int N;
-    cin>>N;
+    cin >> N;
     points = vector<Point>(N);
     for (int idx = 0; idx < N; ++idx) {
-        cin>>points[idx].x>>points[idx].y;
+        cin >> points[idx].x >> points[idx].y;
         points[idx].num = idx;
     }
     memset(v, 0, sizeof(v));
     dist = vector<int>(N, 0x7FFFFFFF);
     build(N);
-    for (int idx = 0; idx < N; ++idx {
+    for (int idx = 0; idx < N; ++idx) {
         swap(points[idx].x, points[idx].y);
     }
     build(N);
-    cout<<spfa(N)<<endl;
+    cout << spfa(N) << endl;
     return 0;
 }
