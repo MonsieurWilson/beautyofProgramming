@@ -1,30 +1,16 @@
+#include <vector>
 #include "Algorithm.h"
 #include "HeapSort.h"
-#include <vector>
+#include "Sort.h"
+
 
 using namespace std;
-
-template <typename Object>
-class LessThan {
-public:
-    bool operator () (const Object &o1, const Object &o2) {
-        return o1.beg < o2.beg;
-    }
-};
 
 template <typename Object>
 class BiggerThan {
 public:
     bool operator () (const Object &o1, const Object &o2) {
         return o1.beg > o2.beg;
-    }
-};
-
-template <typename Object>
-class Sum {
-public:
-    Object operator () (const Object &o1, const Object &o2) {
-        return o1 + o2;
     }
 };
 
@@ -40,21 +26,55 @@ ostream &operator << (ostream &o, const Interval &i) {
     return o;
 }
 
-int main() {
-    HeapSort<int> heap_sort;
-    vector<int> vec;
-    int ele;
-    cout << "Input the vector's elements: " << endl;
-    while (cin >> ele) {
-        vec.push_back(ele);
+bool increment(string &num, const int bits) {
+    int carry = 1, i = 1;
+    int N = num.size();
+    for (; i <= bits; ++i) {
+        int sum = num[N - i] - '0' + carry;
+        if (sum >= 10) {
+            num[N - i] = sum - 10 + '0';
+        }
+        else {
+            num[N - i] = sum + '0';
+            break;
+        }
     }
-    Algorithm a;
-    a.mergeSort(vec);
-    cout << "After sorting, the vector's elements are: " << endl;
-    for (auto v: vec) {
+    return i != bits;
+}
+
+void printWithoutLedingZero(const string &num) {
+    int beg = 0;
+    while (num[beg] == '0') {
+        ++beg;
+    }
+    while (beg < num.size()) {
+        cout << num[beg++];
+    }
+}
+
+void print1ToNNumbers(const int bits) {
+    string num(20, '0');
+    while (increment(num, bits)) {
+        printWithoutLedingZero(num);
+        cout << endl;
+    }
+}
+
+int main() {
+    cout << "Input the vector's elements:" << endl;
+    vector<int> nums;
+    int ele;
+    while (cin >> ele) {
+        nums.push_back(ele);
+    }
+
+    Sort s;
+    s.insertionSort(nums);
+
+    cout << "After sorting, the vector's elements are:" << endl;
+    for (auto v: nums) {
         cout << v << " ";
     }
     cout << endl;
-
     return 0;
 }
