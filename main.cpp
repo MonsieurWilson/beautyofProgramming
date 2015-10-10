@@ -69,7 +69,7 @@ int main() {
     }
 
     Sort s;
-    s.insertionSort(nums);
+    s.heapSort(nums);
 
     cout << "After sorting, the vector's elements are:" << endl;
     for (auto v: nums) {
