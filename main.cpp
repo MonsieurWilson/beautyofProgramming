@@ -1,6 +1,6 @@
 #include <vector>
+#include <cmath>
 #include "Algorithm.h"
-#include "HeapSort.h"
 #include "Sort.h"
 
 
@@ -62,14 +62,14 @@ void print1ToNNumbers(const int bits) {
 
 int main() {
     cout << "Input the vector's elements:" << endl;
-    vector<int> nums;
+    vector<long> nums;
     int ele;
     while (cin >> ele) {
         nums.push_back(ele);
     }
 
     Sort s;
-    s.heapSort(nums);
+    s.radixSort(nums);
 
     cout << "After sorting, the vector's elements are:" << endl;
     for (auto v: nums) {
