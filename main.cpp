@@ -1,5 +1,6 @@
 #include <vector>
 #include <cmath>
+#include <cstdlib>
 #include "Algorithm.h"
 #include "Sort.h"
 
@@ -26,41 +27,8 @@ ostream &operator << (ostream &o, const Interval &i) {
     return o;
 }
 
-bool increment(string &num, const int bits) {
-    int carry = 1, i = 1;
-    int N = num.size();
-    for (; i <= bits; ++i) {
-        int sum = num[N - i] - '0' + carry;
-        if (sum >= 10) {
-            num[N - i] = sum - 10 + '0';
-        }
-        else {
-            num[N - i] = sum + '0';
-            break;
-        }
-    }
-    return i != bits;
-}
-
-void printWithoutLedingZero(const string &num) {
-    int beg = 0;
-    while (num[beg] == '0') {
-        ++beg;
-    }
-    while (beg < num.size()) {
-        cout << num[beg++];
-    }
-}
-
-void print1ToNNumbers(const int bits) {
-    string num(20, '0');
-    while (increment(num, bits)) {
-        printWithoutLedingZero(num);
-        cout << endl;
-    }
-}
-
 int main() {
+    /*
     cout << "Input the vector's elements:" << endl;
     vector<long> nums;
     int ele;
@@ -76,5 +44,10 @@ int main() {
         cout << v << " ";
     }
     cout << endl;
+    */
+    char num[10] = {0};
+    scanf("%[^\n]s", num);
+    printf("%d\n", atoi(num));
+
     return 0;
 }
