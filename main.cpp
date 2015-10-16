@@ -27,6 +27,21 @@ ostream &operator << (ostream &o, const Interval &i) {
     return o;
 }
 
+int addTwoNums(const int a, const int b) {
+    int ret = a ^ b, carry = (a & b) << 1;
+    while (carry) {
+        int tmp = ret;
+        ret ^= carry;
+        carry = (carry & tmp) << 1;
+    }
+    return ret;
+}
+
+struct A {
+    float f;
+    int arr[3];
+};
+
 int main() {
     /*
     cout << "Input the vector's elements:" << endl;
@@ -45,9 +60,9 @@ int main() {
     }
     cout << endl;
     */
-    char num[10] = {0};
-    scanf("%[^\n]s", num);
-    printf("%d\n", atoi(num));
+
+    cout << sizeof(A) << endl;
+
 
     return 0;
 }
